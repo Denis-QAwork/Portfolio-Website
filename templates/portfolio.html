@@ -1,0 +1,65 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+  <meta charset="UTF-8">
+  <title>Denis QA Portfolio</title>
+  <link rel="stylesheet" href="{{ url_for('static', filename='css/style.css') }}">
+  <form class="comment-form" action="/portfolio" method="POST">
+</head>
+<body>
+
+  <header>
+    <h1>🧠 Denis QA Portfolio</h1>
+    <p>Живое портфолио тестировщика — сайт, который я сам разработал и тестирую.</p>
+  </header>
+
+  <main>
+
+    <section id="about">
+      <h2>Обо мне</h2>
+      <p>
+        Привет! Я Денис - начинающий QA-инженер.<br>
+        Изучаю тестирование, Python, SQL, HTML, JS и автоматизацию.<br>
+        Этот сайт - мой практический проект, где я тренируюсь создавать, тестировать и документировать.
+      </p>
+    </section>
+
+    <section id="projects">
+      <h2>Мои проекты</h2>
+      <ul>
+        <li><a href="#">📋 Test Cases</a> — примеры тест-кейсов для этого сайта</li>
+        <li><a href="#">🐞 Bug Reports</a> — найденные и описанные мной баги</li>
+        <li><a href="#">✅ Checklists</a> — функциональные и UI-чеклисты</li>
+        <li><a href="#">🧪 Test Plan</a> — план тестирования проекта</li>
+      </ul>
+    </section>
+
+    <section id="comments">
+      <h2>💬 Комментарии</h2>
+
+      <form method="POST" class="comment-form">
+        <input type="text" name="name" placeholder="Ваше имя" required>
+        <textarea name="comment" placeholder="Оставьте комментарий..." required></textarea>
+        <button type="submit">Отправить</button>
+      </form>
+
+    <div class="comments">
+    <h3>Комментарии:</h3>
+    {% for name, comment in comments %}
+        <div class="comment">
+        <p><strong>{{ name }}</strong></p>
+        <p>{{ comment }}</p>
+        </div>
+    {% else %}
+        <p>Пока нет комментариев.</p>
+    {% endfor %}
+    </div>
+
+  </main>
+
+  <footer>
+    <p>© {{ 2025 }} Denis QA Portfolio v1.0</p>
+  </footer>
+
+</body>
+</html>

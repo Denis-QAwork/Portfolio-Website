@@ -1,0 +1,141 @@
+* {
+  box-sizing: border-box;
+}
+
+body {
+  font-family: "Segoe UI", Arial, sans-serif;
+  background: #111;
+  color: #eaeaea;
+  margin: 0;
+  padding: 0;
+}
+
+
+header {
+  text-align: center;
+  background: #1b1b1b;
+  color: #f5f5f5;
+  padding: 50px 0px 40px;
+  box-shadow: 0 2px 12px rgba(255, 255, 255, 0.05);
+  border-bottom: 1px solid #222;
+}
+
+header h1 {
+  margin: 0;
+  font-weight: 600;
+}
+
+header p {
+  color: #ccc;
+}
+
+
+main {
+  max-width: 800px;
+  margin: 40px auto;
+  padding: 0 20px;
+}
+
+
+section {
+  background: #1a1a1a;
+  padding: 20px;
+  border-radius: 12px;
+  margin-bottom: 30px;
+  box-shadow: 0 0 12px rgba(255, 255, 255, 0.05);
+  border: 1px solid #2b2b2b;
+}
+
+h2 {
+  border-bottom: 1px solid #2e2e2e;
+  padding-bottom: 8px;
+  margin-bottom: 16px;
+  color: #f2f2f2;
+}
+
+
+a {
+  color: #ddd;
+  text-decoration: none;
+  border-bottom: 1px dotted #555;
+  transition: 0.2s;
+}
+
+a:hover {
+  color: white;
+  border-bottom-color: white;
+}
+
+
+ul {
+  list-style: none;
+  padding-left: 0;
+}
+
+ul li {
+  margin-bottom: 10px;
+}
+
+
+.comment-form input,
+.comment-form textarea {
+  width: 100%;
+  margin-bottom: 10px;
+  padding: 10px;
+  border-radius: 8px;
+  border: 1px solid #333;
+  background: #0e0e0e;
+  color: #eaeaea;
+  font-size: 14px;
+}
+
+.comment-form textarea {
+  resize: vertical;
+  max-height: 200px;
+  min-height: 55px;
+  overflow-y: auto;
+}
+
+.comment-form input::placeholder,
+.comment-form textarea::placeholder {
+  color: #777;
+}
+
+.comment-form button {
+  background: #222;
+  color: #f1f1f1;
+  border: 1px solid #444;
+  padding: 10px 20px;
+  border-radius: 6px;
+  cursor: pointer;
+  transition: all 0.2s;
+  box-shadow: 0 2px 5px rgba(255, 255, 255, 0.05);
+}
+
+.comment-form button:hover {
+  background: #333;
+  border-color: #666;
+}
+
+
+.comment {
+  background: #181818;
+  padding: 10px 15px;
+  border-radius: 8px;
+  margin-bottom: 10px;
+  box-shadow: 0 0 6px rgba(255, 255, 255, 0.03);
+}
+
+.comment b {
+  color: #fff;
+  font-weight: 600;
+}
+
+
+footer {
+  text-align: center;
+  color: #666;
+  padding: 20px;
+  border-top: 1px solid #222;
+  font-size: 14px;
+}
