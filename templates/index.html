@@ -1,0 +1,145 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+  <meta charset="UTF-8">
+  <title>Denis QA Portfolio</title>
+  <link rel="stylesheet" href="{{ url_for('static', filename='css/style.css') }}">
+</head>
+
+<body>
+
+  <header>
+    <h1>🧠 Denis QA Portfolio</h1>
+    <nav class="main-nav">
+      <a href="{{ url_for('index') }}">🧠 Home</a>
+      <a href="{{ url_for('test_cases') }}">📋 Test Cases</a>
+      <a href="{{ url_for('bug_reports') }}">🐞 Bug Reports</a>
+      <a href="{{ url_for('checklists') }}">✅ Checklists</a>
+      <a href="{{ url_for('test_plan') }}">🧪 Test Plan</a>
+    </nav>
+  </header>
+
+  <main>
+
+    <section id="about">
+      <h2>🧠 Обо мне</h2>
+      <p>
+        Привет! Я Денис - начинающий QA-инженер.<br>
+        Изучаю тестирование, Python, SQL, HTML, JS и автоматизацию.<br>
+        Этот сайт - мой практический проект, где я тренируюсь создавать, тестировать и документировать.
+      </p>
+    </section>
+
+    <section id="projects">
+      <h2>Мои проекты</h2>
+      <ul>
+        <li><a href="{{ url_for('test_cases') }}">📋 Test Cases</a> - примеры тест-кейсов для этого сайта</li>
+        <li><a href="{{ url_for('bug_reports') }}">🐞 Bug Reports</a> - найденные и описанные мной баги</li>
+        <li><a href="{{ url_for('checklists') }}">✅ Checklists</a> - функциональные и UI-чеклисты</li>
+        <li><a href="{{ url_for('test_plan') }}">🧪 Test Plan</a> - план тестирования проекта</li>
+      </ul>
+    </section>
+
+    <section id="comments">
+  <h2>💬 Комментарии</h2>
+
+  <form id="commentForm" method="POST" class="comment-form">
+    <div class="input-wrapper">
+      <label for="name">Ваше имя:</label>
+      <span class="char-counter" id="nameCounter">0/16</span>
+      <input type="text" id="name" name="name" placeholder="Ваше имя" maxlength="16" required>
+    </div>
+
+    <div class="input-wrapper">
+      <label for="comment">Комментарий:</label>
+      <span class="char-counter" id="commentCounter">0/300</span>
+      <textarea id="comment" name="comment" placeholder="Оставьте комментарий..." maxlength="300" required></textarea>
+    </div>
+
+    <button type="submit">Отправить</button>
+  </form>
+
+  <div id="message" style="display:none; margin-top:10px; color:#8f8;">
+    Комментарий добавлен ✅
+  </div>
+
+  <div class="comments">
+    <h3>Комментарии:</h3>
+    {% for name, comment in comments %}
+      <div class="comment">
+        <p><strong>{{ name }}</strong></p>
+        <p>{{ comment }}</p>
+      </div>
+    {% else %}
+      <p>Пока нет комментариев.</p>
+    {% endfor %}
+  </div>
+  <div class="counter-wrapper" style="display: flex; justify-content: space-between; font-size: 13px; color: #888;">
+  </div>
+  <script>
+    const nameInput = document.querySelector('input[name="name"]');
+    const commentInput = document.querySelector('textarea[name="comment"]');
+    const nameCounter = document.getElementById('nameCounter');
+    const commentCounter = document.getElementById('commentCounter');
+
+    function updateCounters() {
+      nameCounter.textContent = `${nameInput.value.length}/16`;
+      commentCounter.textContent = `${commentInput.value.length}/300`;
+    }
+
+    // обновляем при вводе
+    nameInput.addEventListener('input', updateCounters);
+    commentInput.addEventListener('input', updateCounters);
+  </script>
+</section>
+
+<script>
+function getCookie(name) {
+  const value = `; ${document.cookie}`;
+  const parts = value.split(`; ${name}=`);
+  if (parts.length === 2) return parts.pop().split(';').shift();
+}
+
+document.getElementById("commentForm").addEventListener("submit", async function(event) {
+  event.preventDefault();
+
+  const formData = new FormData(this);
+  const name = formData.get("name");
+  const comment = formData.get("comment");
+
+  const csrfToken = getCookie("csrf_token");
+
+  const response = await fetch("/", {
+    method: "POST",
+    headers: {
+      "X-CSRFToken": csrfToken
+    },
+    body: formData
+  });
+
+  if (response.ok) {
+    document.getElementById("message").style.display = "block";
+
+    const commentsDiv = document.querySelector(".comments");
+    const newComment = document.createElement("div");
+    newComment.classList.add("comment");
+    newComment.innerHTML = `
+      <p><strong>${name}</strong></p>
+      <p>${comment}</p>
+    `;
+    commentsDiv.insertBefore(newComment, commentsDiv.children[1]);
+
+    this.reset();
+
+    setTimeout(() => {
+      document.getElementById("message").style.display = "none";
+    }, 3000);
+  } else {
+    alert("Ошибка при добавлении комментария.");
+  }
+});
+</script>
+</main>
+{% include 'footer.html' %}
+</body>
+</html>
