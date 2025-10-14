@@ -1,0 +1,85 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Test Plan</title>
+  <link rel="stylesheet" href="{{ url_for('static', filename='css/style.css') }}">
+</head>
+<body>
+  <div class="container">
+
+    <header>
+    <h1>🧪 Test Plan</h1>
+    <nav class="main-nav">
+        <a href="{{ url_for('index') }}">🧠 Home</a>
+        <a href="{{ url_for('test_cases') }}">📋 Test Cases</a>
+        <a href="{{ url_for('bug_reports') }}">🐞 Bug Reports</a>
+        <a href="{{ url_for('checklists') }}">✅ Checklists</a>
+        <a href="{{ url_for('test_plan') }}">🧪 Test Plan</a>
+    </nav>
+    </header>
+
+<main>
+  <section>
+    <h2>🧪 Test Plan — Portfolio Website v1.1</h2>
+
+    <div class="testplan-section">
+      <h3>🎯 Цель тестирования</h3>
+      <p>Проверить стабильность и функциональность веб-портфолио QA-инженера, убедиться, что все пользовательские сценарии (комментарии, переходы между страницами, загрузка багов и чеклистов) работают корректно и без ошибок.</p>
+    </div>
+
+    <div class="testplan-section">
+      <h3>🧩 Объект тестирования</h3>
+      <ul>
+        <li>Главная страница (Home / Portfolio)</li>
+        <li>Bug Reports — получение данных с GitHub API</li>
+        <li>Test Cases — статический и документированный функционал</li>
+        <li>Checklists — сохранение состояния чекбоксов в cookies</li>
+      </ul>
+    </div>
+
+    <div class="testplan-section">
+      <h3>🧠 Типы тестирования</h3>
+      <ul>
+        <li>Smoke Testing</li>
+        <li>Functional Testing</li>
+        <li>UI/UX Testing</li>
+        <li>Regression Testing (при релизах)</li>
+      </ul>
+    </div>
+
+    <div class="testplan-section">
+      <h3>🛠 Инструменты</h3>
+      <ul>
+        <li>Python (Flask, SQLite)</li>
+        <li>HTML, CSS, JS</li>
+        <li>Git + GitHub</li>
+        <li>Browser DevTools, Postman</li>
+      </ul>
+    </div>
+
+    <div class="testplan-section">
+      <h3>⏳ Критерии завершения</h3>
+      <ul>
+        <li>Все баги с приоритетом High закрыты</li>
+        <li>Smoke и Regression чеклисты выполнены на 100%</li>
+        <li>Функциональные тесты пройдены без ошибок</li>
+      </ul>
+    </div>
+
+    <div class="testplan-section">
+      <h3>⚠️ Риски и допущения</h3>
+      <ul>
+        <li>Проблемы с GitHub API (ограничения по запросам)</li>
+        <li>Ошибки при работе cookies в разных браузерах</li>
+        <li>Отсутствие бэкенда для сохранения данных</li>
+      </ul>
+    </div>
+  </section>
+</main>
+
+{% include 'footer.html' %}
+
+</body>
+</html>

@@ -1,0 +1,58 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Test Cases</title>
+  <link rel="stylesheet" href="{{ url_for('static', filename='css/style.css') }}">
+</head>
+<body>
+  <div class="container">
+
+    <header>
+    <h1>📋 Test Cases</h1>
+    <nav class="main-nav">
+        <a href="{{ url_for('index') }}">🧠 Home</a>
+        <a href="{{ url_for('test_cases') }}">📋 Test Cases</a>
+        <a href="{{ url_for('bug_reports') }}">🐞 Bug Reports</a>
+        <a href="{{ url_for('checklists') }}">✅ Checklists</a>
+        <a href="{{ url_for('test_plan') }}">🧪 Test Plan</a>
+    </nav>
+    </header>
+
+    <main>
+    <section>
+        <h2>📋 Test Cases</h2>
+
+        <div class="testcase-list">
+        <div class="testcase-card">
+            <h3>TC-001 — Добавление комментария</h3>
+            <p><b>Цель:</b> Проверить, что пользователь может оставить комментарий на главной странице.</p>
+            <p><b>Предусловия:</b> Открыта страница Home.</p>
+            <p><b>Шаги:</b></p>
+            <ol>
+            <li>Ввести имя и текст комментария.</li>
+            <li>Нажать кнопку «Отправить».</li>
+            </ol>
+            <p><b>Ожидаемый результат:</b> Комментарий появляется в списке ниже формы.</p>
+            <p class="priority high">Приоритет: Высокий</p>
+        </div>
+
+        <div class="testcase-card">
+            <h3>TC-002 — Проверка загрузки страницы Bug Reports</h3>
+            <p><b>Цель:</b> Убедиться, что список багов корректно подгружается из GitHub Issues.</p>
+            <p><b>Шаги:</b></p>
+            <ol>
+            <li>Открыть страницу <a href="{{ url_for('bug_reports') }}">Bug Reports</a>.</li>
+            </ol>
+            <p><b>Ожидаемый результат:</b> Отображаются все баги из GitHub с их статусами.</p>
+            <p class="priority medium">Приоритет: Средний</p>
+        </div>
+        </div>
+    </section>
+    </main>
+
+{% include 'footer.html' %}
+
+</body>
+</html>

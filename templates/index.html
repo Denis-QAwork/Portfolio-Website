@@ -4,19 +4,25 @@
   <meta charset="UTF-8">
   <title>Denis QA Portfolio</title>
   <link rel="stylesheet" href="{{ url_for('static', filename='css/style.css') }}">
-  <form class="comment-form" action="/portfolio" method="POST">
+  <form class="comment-form" action="/" method="POST">
 </head>
 <body>
 
-  <header>
+    <header>
     <h1>🧠 Denis QA Portfolio</h1>
-    <p>Живое портфолио тестировщика — сайт, который я сам разработал и тестирую.</p>
-  </header>
+    <nav class="main-nav">
+        <a href="{{ url_for('index') }}">🧠 Home</a>
+        <a href="{{ url_for('test_cases') }}">📋 Test Cases</a>
+        <a href="{{ url_for('bug_reports') }}">🐞 Bug Reports</a>
+        <a href="{{ url_for('checklists') }}">✅ Checklists</a>
+        <a href="{{ url_for('test_plan') }}">🧪 Test Plan</a>
+    </nav>
+    </header>
 
   <main>
 
     <section id="about">
-      <h2>Обо мне</h2>
+      <h2>🧠 Обо мне</h2>
       <p>
         Привет! Я Денис - начинающий QA-инженер.<br>
         Изучаю тестирование, Python, SQL, HTML, JS и автоматизацию.<br>
@@ -28,7 +34,7 @@
       <h2>Мои проекты</h2>
       <ul>
         <li><a href="#">📋 Test Cases</a> — примеры тест-кейсов для этого сайта</li>
-        <li><a href="#">🐞 Bug Reports</a> — найденные и описанные мной баги</li>
+        <li><a href="/bug-reports" class="nav-link">🐞 Bug Reports</a> — найденные и описанные мной баги</li>
         <li><a href="#">✅ Checklists</a> — функциональные и UI-чеклисты</li>
         <li><a href="#">🧪 Test Plan</a> — план тестирования проекта</li>
       </ul>
@@ -56,10 +62,8 @@
     </div>
 
   </main>
-
-  <footer>
-    <p>© {{ 2025 }} Denis QA Portfolio v1.0</p>
-  </footer>
+  
+{% include 'footer.html' %}
 
 </body>
 </html>

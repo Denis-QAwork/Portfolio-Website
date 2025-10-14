@@ -1,0 +1,82 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Checklists</title>
+  <link rel="stylesheet" href="{{ url_for('static', filename='css/style.css') }}">
+</head>
+<body>
+  <div class="container">
+
+    <header>
+    <h1>✅ Checklists</h1>
+    <nav class="main-nav">
+        <a href="{{ url_for('index') }}">🧠 Home</a>
+        <a href="{{ url_for('test_cases') }}">📋 Test Cases</a>
+        <a href="{{ url_for('bug_reports') }}">🐞 Bug Reports</a>
+        <a href="{{ url_for('checklists') }}">✅ Checklists</a>
+        <a href="{{ url_for('test_plan') }}">🧪 Test Plan</a>
+    </nav>
+    </header>
+
+<main>
+  <section>
+    <h2>✅ Checklists</h2>
+
+    <div class="checklist">
+      <div class="checklist-header">
+        <h3>🧩 Smoke Checklist</h3>
+        <p id="progress">0/5 выполнено (0%)</p>
+      </div>
+      <ul>
+        <li><input type="checkbox" id="chk1"> Главная страница открывается без ошибок</li>
+        <li><input type="checkbox" id="chk2"> Комментарий сохраняется и отображается</li>
+        <li><input type="checkbox" id="chk3"> Страница Bug Reports подгружает GitHub issues</li>
+        <li><input type="checkbox" id="chk4"> Навигация между страницами работает корректно</li>
+        <li><input type="checkbox" id="chk5"> Сайт корректно отображается на мобильных устройствах</li>
+      </ul>
+    </div>
+  </section>
+</main>
+
+<script>
+function saveChecklist() {
+  const checkboxes = document.querySelectorAll('.checklist input[type="checkbox"]');
+  const states = {};
+  checkboxes.forEach(cb => states[cb.id] = cb.checked);
+  document.cookie = "checklist=" + JSON.stringify(states) + "; path=/; max-age=31536000";
+  updateProgress();
+}
+
+function loadChecklist() {
+  const cookies = document.cookie.split("; ").find(row => row.startsWith("checklist="));
+  if (!cookies) return;
+  const states = JSON.parse(cookies.split("=")[1]);
+  for (const id in states) {
+    const cb = document.getElementById(id);
+    if (cb) cb.checked = states[id];
+  }
+}
+
+function updateProgress() {
+  const checkboxes = document.querySelectorAll('.checklist input[type="checkbox"]');
+  const checked = Array.from(checkboxes).filter(cb => cb.checked).length;
+  const total = checkboxes.length;
+  const percent = Math.round((checked / total) * 100);
+  document.getElementById("progress").textContent = `${checked}/${total} выполнено (${percent}%)`;
+}
+
+document.addEventListener("DOMContentLoaded", () => {
+  loadChecklist();
+  updateProgress();
+  document.querySelectorAll('.checklist input[type="checkbox"]').forEach(cb => {
+    cb.addEventListener('change', saveChecklist);
+  });
+});
+</script>
+
+{% include 'footer.html' %}
+
+</body>
+</html>
