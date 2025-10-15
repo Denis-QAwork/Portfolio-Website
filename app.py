@@ -100,8 +100,11 @@ def bug_reports():
     url = "https://api.github.com/repos/Denis-QAwork/Portfolio-Website/issues?state=all"
     response = requests.get(url)
     issues = response.json()
-    return render_template('bug_reports.html', issues=issues)
 
+    # фильтруем только те, которые НЕ являются pull request'ами
+    issues = [issue for issue in issues if 'pull_request' not in issue]
+
+    return render_template('bug_reports.html', issues=issues)
 
 if __name__ == '__main__':
     app.run(debug=True)
