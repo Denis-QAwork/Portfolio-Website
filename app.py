@@ -98,14 +98,19 @@ def test_plan():
 @app.route('/bug_reports')
 def bug_reports():
     url = "https://api.github.com/repos/Denis-QAwork/Portfolio-Website/issues?state=all"
-    response = requests.get(url)
+    headers = {}
+
+    token = os.getenv("GITHUB_TOKEN")
+    if token:
+        headers["Authorization"] = f"token {token}"
+
+    response = requests.get(url, headers=headers)
 
     try:
         data = response.json()
     except ValueError:
-        data = []  # если API вернул невалидный ответ
+        data = []
 
-    # если API вернул ошибку (например, rate limit)
     if not isinstance(data, list):
         data = []
 
