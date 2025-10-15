@@ -99,10 +99,26 @@ def test_plan():
 def bug_reports():
     url = "https://api.github.com/repos/Denis-QAwork/Portfolio-Website/issues?state=all"
     response = requests.get(url)
-    issues = response.json()
 
-    # фильтруем только те, которые НЕ являются pull request'ами
-    issues = [issue for issue in issues if 'pull_request' not in issue]
+    try:
+        data = response.json()
+    except ValueError:
+        data = []  # если API вернул невалидный ответ
+
+    # если API вернул ошибку (например, rate limit)
+    if not isinstance(data, list):
+        data = []
+
+    issues = []
+    for issue in data:
+        if not isinstance(issue, dict) or "pull_request" in issue:
+            continue
+        issues.append({
+            "number": issue.get("number"),
+            "title": issue.get("title", "(Без названия)"),
+            "state": issue.get("state", "unknown"),
+            "html_url": issue.get("html_url", "#")
+        })
 
     return render_template('bug_reports.html', issues=issues)
 
