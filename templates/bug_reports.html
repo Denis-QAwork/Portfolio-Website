@@ -9,40 +9,68 @@
 <body>
   <div class="container">
 
-    <header>
-    <h1>🐞 Bug Reports</h1>
-    <nav class="main-nav">
-        <a href="{{ url_for('index') }}">🧠 Home</a>
-        <a href="{{ url_for('test_cases') }}">📋 Test Cases</a>
-        <a href="{{ url_for('bug_reports') }}">🐞 Bug Reports</a>
-        <a href="{{ url_for('checklists') }}">✅ Checklists</a>
-        <a href="{{ url_for('test_plan') }}">🧪 Test Plan</a>
-    </nav>
-    </header>
+{% include 'header.html' %}
 
-    <main>
-    <section>
-        <h2>🐞 Bug Reports</h2>
+<main>
+  <section>
+    <h2>🐞 Баг-репорты</h2>
 
-        {% if issues %}
-        <div class="bug-list">
-            {% for issue in issues %}
-            <div class="bug-card">
-                <div class="bug-title">
-                    #{{ issue.number }} - {{ issue.title }}
-                </div>
-                <span class="bug-status {% if issue.state == 'open' %}status-open{% else %}status-closed{% endif %}">
-                {{ issue.state }}
-                </span>
-                <p><a href="{{ issue.html_url }}" target="_blank">Открыть на GitHub</a></p>
-            </div>
-            {% endfor %}
+    <div style="display:flex; gap:10px; margin-bottom:20px; flex-wrap:wrap;">
+      <input
+        type="text"
+        id="bugSearch"
+        placeholder="Поиск по ID или названию..."
+        style="flex:1; min-width:240px; padding:10px; border-radius:8px; border:1px solid #333; background:#0e0e0e; color:#eee;"
+      >
+    <div class="filter-container">
+    <select id="statusFilter">
+        <option value="all">Все</option>
+        <option value="open">Только открытые</option>
+        <option value="closed">Только закрытые</option>
+    </select>
+    </div>
+    </div>
+
+    <div class="bug-list">
+      {% for issue in issues %}
+        <div class="bug-card" data-status="{{ issue.state }}">
+          <div class="bug-title">#{{ issue.number }} - {{ issue.title }}</div>
+          <span class="bug-status {% if issue.state == 'open' %}status-open{% else %}status-closed{% endif %}">
+            {{ issue.state }}
+          </span>
+          <p><a href="{{ issue.html_url }}" target="_blank">Открыть на GitHub</a></p>
         </div>
-        {% else %}
+      {% endfor %}
+      {% if issues|length == 0 %}
         <p>Багов нет!</p>
-        {% endif %}
-    </section>
-    </main>
+      {% endif %}
+    </div>
+  </section>
+</main>
+
+<script>
+  const searchInput = document.getElementById("bugSearch");
+  const statusFilter = document.getElementById("statusFilter");
+  const bugCards = document.querySelectorAll(".bug-card");
+
+  function filterBugs() {
+    const query = searchInput.value.toLowerCase();
+    const status = statusFilter.value;
+
+    bugCards.forEach(card => {
+      const title = card.querySelector(".bug-title").innerText.toLowerCase();
+      const bugStatus = card.dataset.status.toLowerCase();
+
+      const matchesText = title.includes(query);
+      const matchesStatus = (status === "all") || (bugStatus === status);
+
+      card.style.display = (matchesText && matchesStatus) ? "block" : "none";
+    });
+  }
+
+  searchInput.addEventListener("input", filterBugs);
+  statusFilter.addEventListener("change", filterBugs);
+</script>
 
 {% include 'footer.html' %}
 

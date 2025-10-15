@@ -2,22 +2,13 @@
 <html lang="ru">
 <head>
   <meta charset="UTF-8">
-  <title>Denis QA Portfolio</title>
+  <title>QA Portfolio</title>
   <link rel="stylesheet" href="{{ url_for('static', filename='css/style.css') }}">
 </head>
 
 <body>
 
-  <header>
-    <h1>🧠 Denis QA Portfolio</h1>
-    <nav class="main-nav">
-      <a href="{{ url_for('index') }}">🧠 Home</a>
-      <a href="{{ url_for('test_cases') }}">📋 Test Cases</a>
-      <a href="{{ url_for('bug_reports') }}">🐞 Bug Reports</a>
-      <a href="{{ url_for('checklists') }}">✅ Checklists</a>
-      <a href="{{ url_for('test_plan') }}">🧪 Test Plan</a>
-    </nav>
-  </header>
+{% include 'header.html' %}
 
   <main>
 
@@ -45,7 +36,7 @@
 
   <form id="commentForm" method="POST" class="comment-form">
     <div class="input-wrapper">
-      <label for="name">Ваше имя:</label>
+      <label for="name">Имя:</label>
       <span class="char-counter" id="nameCounter">0/16</span>
       <input type="text" id="name" name="name" placeholder="Ваше имя" maxlength="16" required>
     </div>

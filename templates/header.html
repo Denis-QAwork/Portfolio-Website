@@ -1,0 +1,34 @@
+<header>
+    <h1>
+    {% if request.endpoint == 'index' %}
+        🧠 QA Портфолио
+    {% elif request.endpoint == 'test_cases' %}
+        📋 Тест кейсы
+    {% elif request.endpoint == 'bug_reports' %}
+        🐞 Баг репорты
+    {% elif request.endpoint == 'checklists' %}
+        ✅ Чеклисты
+    {% elif request.endpoint == 'test_plan' %}
+        🧪 Тест план
+    {% else %}
+        🧠 QA Портфолио
+    {% endif %}
+    </h1>
+  <nav class="main-nav">
+    <a href="{{ url_for('index') }}" class="{% if request.endpoint == 'index' %}active{% endif %}">
+      🧠 На главную
+    </a>
+    <a href="{{ url_for('test_cases') }}" class="{% if request.endpoint == 'test_cases' %}active{% endif %}">
+      📋 Тест кейсы
+    </a>
+    <a href="{{ url_for('bug_reports') }}" class="{% if request.endpoint == 'bug_reports' %}active{% endif %}">
+      🐞 Баг репорты
+    </a>
+    <a href="{{ url_for('checklists') }}" class="{% if request.endpoint == 'checklists' %}active{% endif %}">
+      ✅ Чеклисты
+    </a>
+    <a href="{{ url_for('test_plan') }}" class="{% if request.endpoint == 'test_plan' %}active{% endif %}">
+      🧪 Тест план
+    </a>
+  </nav>
+</header>
